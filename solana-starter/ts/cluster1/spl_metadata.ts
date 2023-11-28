@@ -1,10 +1,10 @@
 import { createMetadataAccountV3 } from "@metaplex-foundation/mpl-token-metadata";
 import {
   createSignerFromKeypair,
+  publicKey,
   signerIdentity,
 } from "@metaplex-foundation/umi";
 import { createUmi } from "@metaplex-foundation/umi-bundle-defaults";
-import { fromWeb3JsPublicKey } from "@metaplex-foundation/umi-web3js-adapters";
 import { Commitment, Connection, Keypair, PublicKey } from "@solana/web3.js";
 import wallet from "../wba-wallet.json";
 
@@ -43,11 +43,9 @@ umi.use(signerIdentity(signerKeypair));
   try {
     // Start here
     const metadataTx = createMetadataAccountV3(umi, {
-      metadata: fromWeb3JsPublicKey(metadata_pda),
-      mint: fromWeb3JsPublicKey(mint),
+      mint: publicKey(mint),
       mintAuthority: signerKeypair,
-      payer: signerKeypair,
-      updateAuthority: fromWeb3JsPublicKey(keypair.publicKey),
+      updateAuthority: publicKey(keypair.publicKey),
       data: {
         name: "WBA",
         symbol: "WBA",
