@@ -7,7 +7,10 @@ const keypair = Keypair.fromSecretKey(new Uint8Array(wallet));
 
 //Create a Solana devnet connection
 const commitment: Commitment = "confirmed";
-const connection = new Connection("https://api.devnet.solana.com", commitment);
+const connection = new Connection(
+  "https://api.mainnet-beta.solana.com",
+  commitment
+);
 
 (async () => {
   try {
@@ -17,7 +20,7 @@ const connection = new Connection("https://api.devnet.solana.com", commitment);
       keypair,
       keypair.publicKey,
       null,
-      6
+      0
     );
     console.log(mint.toBase58());
   } catch (error) {
